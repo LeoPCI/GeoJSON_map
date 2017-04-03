@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>D3: Setting path fills</title>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.js"></script>
+    <script src="\Users\Orion\Desktop\NorthOakland.json" />
         <style type="text/css">
             /* No style rules here yet */       
         </style>
@@ -31,7 +32,7 @@
                         .attr("height", h);
 
             //Load in GeoJSON data
-            d3.json("custom.geo.json", function(json) {
+            d3.json("NorthOakland.json", function(json) {
 
                 //Bind data and create one path per GeoJSON feature
                 svg.selectAll("path")
