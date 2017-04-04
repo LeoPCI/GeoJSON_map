@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Map Testing</title>
 <style>
-    .province{
-        fill:#ccc;
-    }
+path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
+}
 </style>
 <body>
 <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script type="text/javascript">
+<script src="d3js.org/topojson.v1.min.js"></script>
+<script>
+var width = 960,
+    height = 500;
 
-  alert("hi")
+var projection = d3.geo.mercator()
+    .center([0, 5 ])
+    .scale(900)
+    .rotate([-180,0]);
 
-    var width = 960; 
-        height = 500;
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-    var svg = d3.select("body").append("svg").attr("width", width).attr("height",height);
+var path = d3.geo.path()
+    .projection(projection);
 
-    // Removed the slash before provinces.geojson
-    d3.json("NorthOakland.json", function(error, provinces) {
-        if (error) return console.error(error);
+var g = svg.append("g");
 
-        svg.append("g")
-            .selectAll("path")
-            .data(provinces.features)
-            .enter()
-            .append("path")
-            .attr("class","province")
-            .attr("d", d3.geo.path().projection(d3.geo.mercator().center([0,5]).scale(200).rotate([-180,0]))); // Added center and rotate here
+// load and display the World
+d3.json("json/world-110m2.json", function(error, topology) {
+    g.selectAll("path")
+      .data(topojson.object(topology, topology.objects.countries)
+          .geometries)
+    .enter()
+      .append("path")
+      .attr("d", path)
 });
+
 </script>
 </body>
-<html
+</html>
