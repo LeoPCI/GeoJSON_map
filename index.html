@@ -34,9 +34,6 @@
             //Load in GeoJSON data
             d3.json("NorthOakland.json", function(json) {
 
-                  svg.append("path")
-                 .datum({type: "FeatureCollection", features: features})
-                 .attr("d", d3.geoPath());
                 //Bind data and create one path per GeoJSON feature
                 svg.selectAll("path")
                    .data(json.features)
